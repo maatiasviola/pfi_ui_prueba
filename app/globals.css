@@ -108,6 +108,8 @@
   --ring: oklch(0.88 0.2 128);
   --signal: oklch(0.88 0.2 128);
   --signal-foreground: oklch(0.22 0.05 130);
+  /* Versión RGB del color de señal, para dibujar en <canvas> (no entiende oklch). */
+  --signal-rgb: 190 240 110;
   --friction: oklch(0.72 0.17 40);
   --chart-1: oklch(0.88 0.2 128);
   --chart-2: oklch(0.8 0.14 70);
@@ -122,6 +124,59 @@
   --sidebar-accent-foreground: oklch(0.95 0.008 265);
   --sidebar-border: oklch(1 0 0 / 9%);
   --sidebar-ring: oklch(0.88 0.2 128);
+}
+
+/* ------------------------------------------------------------------ */
+/* Paletas conmutables — se aplican con [data-palette] en un contenedor. */
+/* Cada una redefine el color de acento (--signal) y sus derivados.      */
+/* ------------------------------------------------------------------ */
+
+[data-palette='lima'] {
+  --signal: oklch(0.88 0.2 128);
+  --signal-foreground: oklch(0.22 0.05 130);
+  --signal-rgb: 190 240 110;
+  --ring: oklch(0.88 0.2 128);
+  --primary: oklch(0.88 0.2 128);
+  --primary-foreground: oklch(0.22 0.05 130);
+  --sidebar-primary: oklch(0.88 0.2 128);
+  --sidebar-ring: oklch(0.88 0.2 128);
+  --chart-1: oklch(0.88 0.2 128);
+}
+
+[data-palette='violeta'] {
+  --signal: oklch(0.72 0.19 300);
+  --signal-foreground: oklch(0.99 0.01 300);
+  --signal-rgb: 197 141 250;
+  --ring: oklch(0.72 0.19 300);
+  --primary: oklch(0.72 0.19 300);
+  --primary-foreground: oklch(0.99 0.01 300);
+  --sidebar-primary: oklch(0.72 0.19 300);
+  --sidebar-ring: oklch(0.72 0.19 300);
+  --chart-1: oklch(0.72 0.19 300);
+}
+
+[data-palette='indigo'] {
+  --signal: oklch(0.72 0.16 272);
+  --signal-foreground: oklch(0.99 0.01 272);
+  --signal-rgb: 148 152 252;
+  --ring: oklch(0.72 0.16 272);
+  --primary: oklch(0.72 0.16 272);
+  --primary-foreground: oklch(0.99 0.01 272);
+  --sidebar-primary: oklch(0.72 0.16 272);
+  --sidebar-ring: oklch(0.72 0.16 272);
+  --chart-1: oklch(0.72 0.16 272);
+}
+
+[data-palette='cian'] {
+  --signal: oklch(0.82 0.13 205);
+  --signal-foreground: oklch(0.2 0.04 220);
+  --signal-rgb: 76 216 230;
+  --ring: oklch(0.82 0.13 205);
+  --primary: oklch(0.82 0.13 205);
+  --primary-foreground: oklch(0.2 0.04 220);
+  --sidebar-primary: oklch(0.82 0.13 205);
+  --sidebar-ring: oklch(0.82 0.13 205);
+  --chart-1: oklch(0.82 0.13 205);
 }
 
 @media (prefers-color-scheme: dark) {

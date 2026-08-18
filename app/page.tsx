@@ -6,7 +6,9 @@ import { ConstellationView } from '@/components/constellation-view'
 import { OrbitView } from '@/components/orbit-view'
 import { ListView } from '@/components/list-view'
 import { ClusterDetail } from '@/components/cluster-detail'
+import { PaletteToggle } from '@/components/palette-toggle'
 import { clusters, kpis, type Cluster } from '@/lib/data'
+import { defaultPalette, type PaletteId } from '@/lib/palettes'
 
 type ViewId = 'constelacion' | 'orbita' | 'foco'
 
@@ -28,11 +30,15 @@ export default function Page() {
   const [view, setView] = useState<ViewId>('constelacion')
   const [activeKpi, setActiveKpi] = useState<string | null>(null)
   const [selected, setSelected] = useState<Cluster | null>(null)
+  const [palette, setPalette] = useState<PaletteId>(defaultPalette)
 
   const totalSessions = clusters.reduce((s, c) => s + c.sessions, 0)
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden">
+    <main
+      data-palette={palette}
+      className="relative min-h-screen w-full overflow-hidden"
+    >
       {/* Glow ambiental */}
       <div
         aria-hidden
@@ -137,7 +143,11 @@ export default function Page() {
           </p>
 
           {view === 'constelacion' && (
-            <ConstellationView activeKpi={activeKpi} onSelect={setSelected} />
+            <ConstellationView
+              activeKpi={activeKpi}
+              onSelect={setSelected}
+              paletteId={palette}
+            />
           )}
           {view === 'orbita' && (
             <OrbitView activeKpi={activeKpi} onSelect={setSelected} />
@@ -149,6 +159,8 @@ export default function Page() {
       </div>
 
       <ClusterDetail cluster={selected} onClose={() => setSelected(null)} />
+
+      <PaletteToggle value={palette} onChange={setPalette} />
     </main>
   )
 }

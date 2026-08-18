@@ -26,7 +26,19 @@ const SWEEP_SPEED = 560 // px/s con que el barrido revela los clusters
 const AMBIENT_PERIOD = 5.5 // cada cuánto (s) barre el radar ambiente
 const AMBIENT_DUR = 2.4 // duración (s) del barrido ambiente
 
-const SIGNAL_RGB: [number, number, number] = [190, 240, 110] // lima de señal
+const SIGNAL_RGB_FALLBACK: [number, number, number] = [190, 240, 110]
+
+/** Lee el color de señal activo (--signal-rgb) desde el CSS del contenedor. */
+function readSignalRgb(el: HTMLElement | null): [number, number, number] {
+  if (!el) return SIGNAL_RGB_FALLBACK
+  const raw = getComputedStyle(el).getPropertyValue('--signal-rgb').trim()
+  if (!raw) return SIGNAL_RGB_FALLBACK
+  const parts = raw.split(/[\s,]+/).map(Number)
+  if (parts.length < 3 || parts.some((n) => Number.isNaN(n))) {
+    return SIGNAL_RGB_FALLBACK
+  }
+  return [parts[0], parts[1], parts[2]]
+}
 
 type PlacedCluster = Cluster & { dx: number; dy: number }
 type Placement = {
@@ -58,8 +70,11 @@ function clusterPos(
 
 export function ConstellationView({
   onSelect,
+  paletteId,
 }: {
   onSelect: (c: Cluster) => void
+  activeKpi?: string | null
+  paletteId?: string
 }) {
   const wrapRef = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -209,6 +224,9 @@ export function ConstellationView({
     if (!canvas || size.w === 0 || size.h === 0) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+
+    // Color de señal activo (según la paleta). Se relee al cambiar paletteId.
+    const SIGNAL_RGB = readSignalRgb(wrapRef.current)
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
     canvas.width = size.w * dpr
@@ -390,7 +408,7 @@ export function ConstellationView({
 
     raf = requestAnimationFrame(frame)
     return () => cancelAnimationFrame(raf)
-  }, [size])
+  }, [size, paletteId])
 
   function handleMove(e: React.PointerEvent) {
     const rect = wrapRef.current?.getBoundingClientRect()
