@@ -1,15 +1,27 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 
-const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
-const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space',
+})
+const plexSans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-plex-sans',
+})
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-plex-mono',
+})
 
 export const metadata: Metadata = {
-  title: 'Atlas de Fricción — Explorá los patrones de tu app',
+  title: 'Eureka — Descubrí dónde tu producto pierde usuarios',
   description:
-    'Descubrí los clusters de fricción de tu aplicación y entendé qué evento clave impacta cada uno. Análisis automático, sin sesgo del analista.',
+    'Eureka detecta automáticamente los patrones de fricción de tu app y los conecta con los eventos clave que ponen en riesgo. Análisis sin sesgo del analista.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -31,8 +43,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'dark',
-  themeColor: '#0d0f16',
+  themeColor: '#f4f4f1',
 }
 
 export default function RootLayout({
@@ -43,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`dark bg-background ${geistSans.variable} ${geistMono.variable}`}
+      className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable}`}
     >
       <body className="antialiased font-sans">
         {children}

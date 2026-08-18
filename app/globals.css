@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-display: var(--font-space), 'Space Grotesk', ui-sans-serif, sans-serif;
   --color-signal: var(--signal);
   --color-signal-foreground: var(--signal-foreground);
   --color-friction: var(--friction);
@@ -105,13 +106,9 @@
   --destructive: oklch(0.7 0.19 28);
   --border: oklch(1 0 0 / 9%);
   --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.88 0.2 128);
-  --signal: oklch(0.88 0.2 128);
-  --signal-foreground: oklch(0.22 0.05 130);
-  /* Versión RGB del color de señal, para dibujar en <canvas> (no entiende oklch). */
-  --signal-rgb: 190 240 110;
+  /* Los tokens de acento (--signal, --ring, --chart-1, --signal-rgb) los aporta
+     [data-palette] en un ancestro, para que el toggle de paletas funcione aquí. */
   --friction: oklch(0.72 0.17 40);
-  --chart-1: oklch(0.88 0.2 128);
   --chart-2: oklch(0.8 0.14 70);
   --chart-3: oklch(0.72 0.17 40);
   --chart-4: oklch(0.7 0.19 25);
@@ -131,15 +128,13 @@
 /* Cada una redefine el color de acento (--signal) y sus derivados.      */
 /* ------------------------------------------------------------------ */
 
+/* Solo redefinen el acento (--signal). El color primario lo fija cada tema
+   (ink en claro, lima en oscuro) para no pisarlo al cambiar de paleta. */
 [data-palette='lima'] {
   --signal: oklch(0.88 0.2 128);
   --signal-foreground: oklch(0.22 0.05 130);
   --signal-rgb: 190 240 110;
   --ring: oklch(0.88 0.2 128);
-  --primary: oklch(0.88 0.2 128);
-  --primary-foreground: oklch(0.22 0.05 130);
-  --sidebar-primary: oklch(0.88 0.2 128);
-  --sidebar-ring: oklch(0.88 0.2 128);
   --chart-1: oklch(0.88 0.2 128);
 }
 
@@ -148,10 +143,6 @@
   --signal-foreground: oklch(0.99 0.01 300);
   --signal-rgb: 197 141 250;
   --ring: oklch(0.72 0.19 300);
-  --primary: oklch(0.72 0.19 300);
-  --primary-foreground: oklch(0.99 0.01 300);
-  --sidebar-primary: oklch(0.72 0.19 300);
-  --sidebar-ring: oklch(0.72 0.19 300);
   --chart-1: oklch(0.72 0.19 300);
 }
 
@@ -160,10 +151,6 @@
   --signal-foreground: oklch(0.99 0.01 272);
   --signal-rgb: 148 152 252;
   --ring: oklch(0.72 0.16 272);
-  --primary: oklch(0.72 0.16 272);
-  --primary-foreground: oklch(0.99 0.01 272);
-  --sidebar-primary: oklch(0.72 0.16 272);
-  --sidebar-ring: oklch(0.72 0.16 272);
   --chart-1: oklch(0.72 0.16 272);
 }
 
@@ -172,11 +159,33 @@
   --signal-foreground: oklch(0.2 0.04 220);
   --signal-rgb: 76 216 230;
   --ring: oklch(0.82 0.13 205);
-  --primary: oklch(0.82 0.13 205);
-  --primary-foreground: oklch(0.2 0.04 220);
-  --sidebar-primary: oklch(0.82 0.13 205);
-  --sidebar-ring: oklch(0.82 0.13 205);
   --chart-1: oklch(0.82 0.13 205);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tema claro "Eureka" (Roce) — onboarding y detalle de cluster.       */
+/* El acento --signal lo aporta [data-palette] en un ancestro.         */
+/* ------------------------------------------------------------------ */
+.theme-roce {
+  color-scheme: light;
+  --background: #f4f4f1;
+  --foreground: #16181a;
+  --card: #fbfbf9;
+  --card-foreground: #16181a;
+  --popover: #fbfbf9;
+  --popover-foreground: #16181a;
+  --primary: #16181a;
+  --primary-foreground: #fbfbf9;
+  --secondary: #eeeeea;
+  --secondary-foreground: #16181a;
+  --muted: #edeeea;
+  --muted-foreground: #6b7075;
+  --accent: #e9eae4;
+  --accent-foreground: #16181a;
+  --destructive: oklch(0.58 0.2 27);
+  --border: rgba(0, 0, 0, 0.1);
+  --input: rgba(0, 0, 0, 0.14);
+  --friction: oklch(0.62 0.19 35);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -306,8 +315,58 @@
   animation: atlas-core-pulse 2.4s ease-in-out infinite;
 }
 
+/* Onboarding: entrada suave de cada pregunta. */
+@keyframes roce-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-roce-in {
+  animation: roce-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Recorrido: las capturas/notas entran deslizándose según la dirección. */
+@keyframes roce-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes roce-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-slide-up {
+  animation: roce-slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-down {
+  animation: roce-slide-down 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-atlas-fade-up,
+  .animate-roce-in,
+  .animate-slide-up,
+  .animate-slide-down,
   [class*='atlas-'] {
     animation: none !important;
   }
