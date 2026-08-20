@@ -26,7 +26,7 @@ const SWEEP_SPEED = 560 // px/s con que el barrido revela los clusters
 const AMBIENT_PERIOD = 5.5 // cada cuánto (s) barre el radar ambiente
 const AMBIENT_DUR = 2.4 // duración (s) del barrido ambiente
 
-const SIGNAL_RGB: [number, number, number] = [190, 240, 110] // lima de señal
+const SIGNAL_RGB: [number, number, number] = [99, 102, 241] // indigo de señal
 
 type PlacedCluster = Cluster & { dx: number; dy: number }
 type Placement = {
@@ -462,7 +462,7 @@ export function ConstellationView({
         ref={wrapRef}
         onPointerMove={handleMove}
         onPointerLeave={() => (mouse.current.inside = false)}
-        className={`relative h-[62vh] min-h-[460px] w-full overflow-hidden rounded-2xl border bg-[radial-gradient(circle_at_50%_40%,oklch(0.2_0.02_265),oklch(0.15_0.015_265))] transition-colors ${
+        className={`relative h-[62vh] min-h-[460px] w-full overflow-hidden rounded-2xl border bg-[radial-gradient(circle_at_50%_40%,oklch(0.99_0.02_270),oklch(0.94_0.035_270))] transition-colors ${
           dragging?.overMap ? 'border-signal/50' : 'border-border'
         }`}
       >

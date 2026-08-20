@@ -52,7 +52,7 @@ export function ClusterDetail({
         role="dialog"
         aria-modal="true"
         aria-label={cluster ? `Detalle de ${cluster.name}` : 'Detalle'}
-        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col overflow-y-auto border-l border-border bg-card shadow-2xl transition-transform duration-400 ease-out ${
+        className={`fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col overflow-y-auto border-l border-primary/15 bg-card shadow-2xl shadow-primary/10 transition-transform duration-400 ease-out ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

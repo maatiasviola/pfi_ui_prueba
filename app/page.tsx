@@ -32,11 +32,11 @@ export default function Page() {
   const totalSessions = clusters.reduce((s, c) => s + c.sessions, 0)
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden">
+    <main className="relative min-h-screen w-full overflow-hidden bg-background">
       {/* Glow ambiental */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-96 w-[80%] -translate-x-1/2 rounded-full bg-signal/10 blur-[120px]"
+        className="pointer-events-none absolute -top-40 left-1/2 h-96 w-[80%] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]"
       />
 
       <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-5 py-8 md:px-8 md:py-12">
@@ -44,7 +44,7 @@ export default function Page() {
         <header className="flex flex-col gap-6 animate-atlas-fade-up">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-3 py-1">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card/80 shadow-sm shadow-primary/5 px-3 py-1">
                 <Sparkles className="h-3.5 w-3.5 text-signal" />
                 <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
                   Atlas de Fricción
@@ -64,7 +64,7 @@ export default function Page() {
             <div
               role="tablist"
               aria-label="Modo de exploración"
-              className="flex shrink-0 items-center gap-1 rounded-xl border border-border bg-card/60 p-1 backdrop-blur"
+              className="flex shrink-0 items-center gap-1 rounded-xl border border-primary/15 bg-card/90 p-1 shadow-sm shadow-primary/5 backdrop-blur"
             >
               {views.map((v) => {
                 const Icon = v.icon
@@ -90,7 +90,7 @@ export default function Page() {
           </div>
 
           {/* Resumen + filtros por KPI */}
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card/40 px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-primary/10 bg-card/75 px-4 py-3 shadow-sm shadow-primary/5">
             <div className="flex items-center gap-5 font-mono text-xs text-muted-foreground">
               <Stat value={String(clusters.length)} label="clusters" />
               <span className="h-6 w-px bg-border" />

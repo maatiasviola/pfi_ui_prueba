@@ -21,7 +21,7 @@ export function ListView({
     .sort((a, b) => b.severity - a.severity)
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card/40">
+    <div className="overflow-hidden rounded-2xl border border-primary/10 bg-card/80 shadow-sm shadow-primary/5">
       <div className="flex items-center gap-4 border-b border-border px-5 py-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
         <span className="w-6">#</span>
         <span className="flex-1">Cluster de fricción</span>
