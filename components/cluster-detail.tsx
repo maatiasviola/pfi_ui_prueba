@@ -11,15 +11,22 @@ export function ClusterDetail({
   cluster: Cluster | null
   onClose: () => void
 }) {
+  const open = Boolean(cluster)
+
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [onClose])
 
-  const open = Boolean(cluster)
+    const previousOverflow = document.body.style.overflow
+    if (open) document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [onClose, open])
   const kpi = cluster ? kpiById(cluster.kpiId) : null
 
   return (
@@ -27,7 +34,7 @@ export function ClusterDetail({
       <button
         aria-label="Cerrar detalle"
         onClick={onClose}
-        className={`fixed inset-0 z-40 cursor-default bg-primary/[0.04] transition-opacity duration-200 ${
+        className={`fixed inset-0 z-40 cursor-default bg-primary/[0.12] backdrop-blur-[3px] transition-[opacity,backdrop-filter] duration-300 ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
@@ -35,7 +42,7 @@ export function ClusterDetail({
       <aside
         role="dialog"
         aria-label={cluster ? `Detalle de ${cluster.name}` : 'Detalle'}
-        className={`fixed bottom-4 left-4 right-4 z-50 max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border-2 border-primary/25 bg-card shadow-2xl shadow-primary/15 transition-all duration-200 ease-out sm:bottom-auto sm:left-1/2 sm:right-auto sm:top-1/2 sm:w-[430px] sm:-translate-x-1/2 sm:-translate-y-1/2 ${
+        className={`fixed bottom-4 left-4 right-4 z-50 max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border-2 border-primary/30 bg-card shadow-2xl shadow-primary/20 ring-8 ring-primary/5 transition-all duration-300 ease-out will-change-transform sm:bottom-auto sm:left-1/2 sm:right-auto sm:top-1/2 sm:w-[430px] sm:-translate-x-1/2 sm:-translate-y-1/2 ${
           open
             ? 'translate-y-0 scale-100 opacity-100 sm:-translate-y-1/2'
             : 'pointer-events-none translate-y-3 scale-[.98] opacity-0 sm:-translate-y-[calc(50%-12px)]'
