@@ -27,7 +27,7 @@ export function ClusterDetail({
       <button
         aria-label="Cerrar detalle"
         onClick={onClose}
-        className={`fixed inset-0 z-40 cursor-default bg-transparent transition-opacity duration-200 ${
+        className={`fixed inset-0 z-40 cursor-default bg-primary/[0.04] transition-opacity duration-200 ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
@@ -35,10 +35,10 @@ export function ClusterDetail({
       <aside
         role="dialog"
         aria-label={cluster ? `Detalle de ${cluster.name}` : 'Detalle'}
-        className={`fixed bottom-4 left-4 right-4 z-50 max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border border-primary/20 bg-card shadow-xl shadow-primary/10 transition-all duration-200 ease-out sm:bottom-auto sm:left-auto sm:right-6 sm:top-24 sm:w-[380px] ${
+        className={`fixed bottom-4 left-4 right-4 z-50 max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border-2 border-primary/25 bg-card shadow-2xl shadow-primary/15 transition-all duration-200 ease-out sm:bottom-auto sm:left-1/2 sm:right-auto sm:top-1/2 sm:w-[430px] sm:-translate-x-1/2 sm:-translate-y-1/2 ${
           open
-            ? 'translate-y-0 scale-100 opacity-100'
-            : 'pointer-events-none translate-y-3 scale-[.98] opacity-0 sm:translate-x-3 sm:translate-y-0'
+            ? 'translate-y-0 scale-100 opacity-100 sm:-translate-y-1/2'
+            : 'pointer-events-none translate-y-3 scale-[.98] opacity-0 sm:-translate-y-[calc(50%-12px)]'
         }`}
       >
         {cluster && kpi && (
@@ -50,9 +50,15 @@ export function ClusterDetail({
                   className="mt-1 size-3 shrink-0 rounded-full bg-primary shadow-[0_0_14px] shadow-primary/60"
                 />
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                    Cluster de fricción
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-primary">
+                      Patrón seleccionado
+                    </p>
+                    <span className="size-1 rounded-full bg-primary/60" aria-hidden />
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                      Cluster de fricción
+                    </span>
+                  </div>
                   <h2 className="mt-1 text-lg font-semibold leading-tight text-balance">
                     {cluster.name}
                   </h2>
