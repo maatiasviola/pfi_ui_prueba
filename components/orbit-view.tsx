@@ -98,7 +98,7 @@ function OrbitSystem({
               <span
                 className="block h-full w-full rounded-full transition-transform duration-200 hover:scale-115"
                 style={{
-                  background: `radial-gradient(circle at 35% 30%, ${color}, oklch(0.78 0.06 270) 130%)`,
+                  background: `radial-gradient(circle at 35% 30%, ${color}, oklch(0.68 0.10 275) 130%)`,
                   boxShadow: `0 0 ${isHover ? 22 : 10}px ${color}`,
                 }}
               />

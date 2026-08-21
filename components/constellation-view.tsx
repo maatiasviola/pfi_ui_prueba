@@ -462,7 +462,7 @@ export function ConstellationView({
         ref={wrapRef}
         onPointerMove={handleMove}
         onPointerLeave={() => (mouse.current.inside = false)}
-        className={`relative h-[62vh] min-h-[460px] w-full overflow-hidden rounded-2xl border bg-[radial-gradient(circle_at_50%_40%,oklch(0.99_0.02_270),oklch(0.94_0.035_270))] transition-colors ${
+        className={`relative h-[62vh] min-h-[460px] w-full overflow-hidden rounded-2xl border bg-[radial-gradient(circle_at_50%_40%,oklch(0.985_0.012_104),oklch(0.91_0.025_104))] transition-colors ${
           dragging?.overMap ? 'border-signal/50' : 'border-border'
         }`}
       >
